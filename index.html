@@ -15,6 +15,16 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..900,0..100,0..1;1,9..144,300..900,0..100,0..1&family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&display=swap" rel="stylesheet" />
 
+  <!-- MailerLite Universal -->
+  <script>
+      (function(w,d,e,u,f,l,n){w[f]=w[f]||function(){(w[f].q=w[f].q||[])
+      .push(arguments);},l=d.createElement(e),l.async=1,l.src=u,
+      n=d.getElementsByTagName(e)[0],n.parentNode.insertBefore(l,n);})
+      (window,document,'script','https://assets.mailerlite.com/js/universal.js','ml');
+      ml('account', '2309022');
+  </script>
+  <!-- End MailerLite Universal -->
+
   <style>
     :root {
       --paper: #efe9de;
@@ -589,50 +599,8 @@
         <h2>Letters from the <em>understory.</em></h2>
         <p class="lede">Occasional dispatches — new writing, reading notes, and the occasional piece of unease — sent when there's something worth saying. No schedule. No noise.</p>
 
-        <!--
-          NEWSLETTER INTEGRATION (n8n webhook)
-          ────────────────────────────────────
-          Post destination: replace the action URL below with your
-          webhook, e.g. https://n8n.aidanmoon.com/webhook/subscribe
-
-          The form POSTs JSON:  { first_name, email }
-
-          n8n workflow shape:
-            1. Webhook (POST) — Response Mode: "Respond Immediately".
-               Under the node's CORS settings, allow your site's origin
-               (e.g. https://aidanmoon.com) or the browser will reject.
-            2. IF node — validate email format and first_name present.
-            3. Store — Airtable / Google Sheets / Postgres (your pick).
-            4. Later — branch to your ESP (Kit, Buttondown, etc.) when
-               you're ready to actually send. You own the list either way.
-
-          Bot defenses:
-            - Hidden "website" honeypot field is the first line (below).
-            - For production, add Cloudflare Turnstile before submit.
-            - Rate-limit the webhook in n8n or at the edge.
-
-          The JS at the bottom of this file handles the fetch, shows a
-          success state, and surfaces errors. While the action URL still
-          contains "n8n.yourdomain.com" it falls back to demo success mode
-          so you can preview the UX without a live endpoint.
-        -->
-        <form class="newsletter-form" id="newsletter-form" action="https://n8n.domioanna.com/webhook/subscribe" method="POST" novalidate>
-          <div class="field">
-            <label for="nl-name">Name</label>
-            <input type="text" id="nl-name" name="first_name" placeholder="First name" required autocomplete="given-name" />
-          </div>
-          <div class="field">
-            <label for="nl-email">Email</label>
-            <input type="email" id="nl-email" name="email" placeholder="you@yourdomain.com" required autocomplete="email" />
-          </div>
-          <div class="honeypot" aria-hidden="true">
-            <label for="nl-website">Leave this field empty</label>
-            <input type="text" id="nl-website" name="website" tabindex="-1" autocomplete="off" />
-          </div>
-          <button type="submit">Subscribe →</button>
-          <div class="newsletter-success">Thank you<span class="subscriber-name"></span>. The first letter will find you.</div>
-          <div class="newsletter-error">Something went astray. Please try again, or write to hello@aidanmoon.com.</div>
-        </form>
+        <!-- MailerLite embedded form -->
+        <div class="ml-embedded" data-form="0d0MCh"></div>
 
         <p class="newsletter-note">No spam. Unsubscribe any time.</p>
       </div>
@@ -650,53 +618,6 @@
 
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
-
-    // Newsletter submit — POSTs JSON { first_name, email } to the form's action URL.
-    // While the action still points at n8n.yourdomain.com it stays in demo mode
-    // so you can preview the success state without a live endpoint.
-    const form = document.getElementById('newsletter-form');
-    const button = form.querySelector('button');
-    const nameSpan = form.querySelector('.subscriber-name');
-
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-
-      // Honeypot: bots fill hidden fields; humans don't.
-      const honey = form.querySelector('[name="website"]');
-      if (honey && honey.value) {
-        form.classList.add('submitted'); // silent fake success
-        return;
-      }
-
-      const data = Object.fromEntries(new FormData(form));
-      delete data.website;
-      if (nameSpan && data.first_name) {
-        nameSpan.textContent = ', ' + data.first_name;
-      }
-
-      // Demo mode — endpoint not yet wired up.
-      const action = form.action;
-      if (!action || action.endsWith('#') || action.includes('n8n.yourdomain.com')) {
-        form.classList.add('submitted');
-        return;
-      }
-
-      button.disabled = true;
-      try {
-        const res = await fetch(action, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(data)
-        });
-        if (!res.ok) throw new Error('Subscribe failed: ' + res.status);
-        form.classList.add('submitted');
-      } catch (err) {
-        console.error('Newsletter submit error:', err);
-        form.classList.add('errored');
-      } finally {
-        button.disabled = false;
-      }
-    });
   </script>
 </body>
 </html>
