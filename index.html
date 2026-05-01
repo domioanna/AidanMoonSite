@@ -238,34 +238,148 @@
     }
 
     /* About */
-    .about { display: grid; grid-template-columns: 1fr 2fr; gap: 6rem; align-items: start; }
-    .about-body { font-size: 1.25rem; line-height: 1.7; color: var(--ink-soft); max-width: 58ch; }
+    section#about {
+      max-width: none;
+      margin: 0;
+      padding: 12rem 3rem;
+      background: var(--paper-deep);
+    }
+
+    .about {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 6rem;
+      align-items: start;
+    }
+
+    .about-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 2.5rem;
+      align-items: flex-start;
+    }
+
+    .about-mark {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.25rem;
+      color: var(--muted);
+      padding-left: 0.5rem;
+    }
+    .about-mark .rule {
+      width: 1px;
+      height: 64px;
+      background: var(--rule);
+    }
+    .about-mark .glyph {
+      font-family: 'Fraunces', serif;
+      font-style: italic;
+      font-size: 1.5rem;
+      line-height: 1;
+    }
+
+    .about-body { font-size: 1.2rem; line-height: 1.75; color: var(--ink-soft); max-width: 62ch; }
     .about-body p + p { margin-top: 1.5rem; }
     .about-body .lead {
       font-family: 'Fraunces', serif;
-      font-size: 2.1rem;
-      line-height: 1.25;
+      font-size: clamp(2.6rem, 5.2vw, 4.4rem);
+      line-height: 1.12;
       color: var(--ink);
       font-weight: 300;
-      font-variation-settings: "opsz" 144;
-      margin-bottom: 2rem;
+      font-variation-settings: "opsz" 144, "SOFT" 30;
+      margin-bottom: 3.5rem;
+      letter-spacing: -0.02em;
+      max-width: 22ch;
+    }
+    .about-signoff {
+      margin-top: 3rem;
+      font-family: 'Fraunces', serif;
+      font-style: italic;
+      color: var(--muted);
+      font-size: 1.05rem;
+      letter-spacing: 0.02em;
+    }
+
+    /* Work / Books */
+    section#work {
+      position: relative;
+      overflow: hidden;
+      max-width: none;
+      margin: 0;
+      padding: 6rem 3rem 9rem;
+      background-color: #14120f;
+      background-image: url("images/work-forest.jpg");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      color: var(--paper);
+    }
+
+    /* Dark wash so text + book covers stay readable over the photo */
+    section#work::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        180deg,
+        rgba(20, 18, 15, 0.55) 0%,
+        rgba(20, 18, 15, 0.7) 60%,
+        rgba(20, 18, 15, 0.78) 100%
+      );
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    section#work > * { position: relative; z-index: 1; }
+
+    .work-header {
+      max-width: 1400px;
+      margin: 0 auto 5rem;
+      text-align: center;
+    }
+    .work-header .section-label {
+      margin-bottom: 1.25rem;
+      color: rgba(239, 233, 222, 0.5);
+    }
+    .work-title {
+      font-family: 'Fraunces', serif;
+      font-weight: 300;
+      font-size: clamp(1.9rem, 3.2vw, 2.6rem);
+      line-height: 1.1;
       letter-spacing: -0.01em;
+      color: var(--paper);
+      font-variation-settings: "opsz" 144, "SOFT" 30;
+    }
+    .work-title em {
+      font-style: italic;
+      color: #a8b89a;
     }
 
-    /* Books */
+    /* Flip book text/links to light tones inside the dark Work section */
+    section#work .book-meta { color: rgba(239, 233, 222, 0.55); }
+    section#work .book-title { color: var(--paper); }
+    section#work .book-desc { color: rgba(239, 233, 222, 0.78); }
+    section#work .book-links a { color: #a8b89a; }
+    section#work .book-links a:hover { color: var(--paper); }
+
     .books-grid {
+      max-width: 1400px;
+      margin: 0 auto;
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 4rem 3rem;
-      margin-top: 1rem;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 320px));
+      gap: 4rem 4rem;
+      justify-content: center;
     }
 
-    .book { display: flex; flex-direction: column; gap: 1.5rem; }
+    .book { display: flex; flex-direction: column; gap: 1.5rem; max-width: 320px; }
+    .book-cover { max-width: 280px; align-self: start; }
 
     .book-cover {
       aspect-ratio: 2 / 3;
       background: var(--paper-deep);
-      border: 1px solid var(--rule);
       position: relative;
       overflow: hidden;
       transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
@@ -361,9 +475,15 @@
 
     /* Newsletter */
     .newsletter {
-      background: var(--ink);
+      background-color: #0e0d0b;
+      background-image:
+        linear-gradient(180deg, rgba(14, 13, 11, 0.7) 0%, rgba(14, 13, 11, 0.85) 100%),
+        url("images/newsletter-mushrooms.jpg");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
       color: var(--paper);
-      margin: 4rem 0 0;
+      margin: 0;
       padding: 8rem 3rem;
       position: relative;
       overflow: hidden;
@@ -384,7 +504,7 @@
     .newsletter h2 {
       font-family: 'Fraunces', serif;
       font-weight: 300;
-      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-size: clamp(2.3rem, 4.4vw, 3.5rem);
       line-height: 1.05;
       letter-spacing: -0.02em;
       margin-bottom: 1.5rem;
@@ -537,9 +657,15 @@
       .hero-content { grid-template-columns: 1fr; gap: 2rem; margin-top: 3rem; }
       .hero-vertical { display: none; }
       section { padding: 4rem 1.5rem; }
-      .about { grid-template-columns: 1fr; gap: 1.5rem; }
+      section#about { padding: 5rem 1.5rem; }
+      section#work { padding: 3rem 1.5rem 5rem; }
+      .work-header { margin-bottom: 3rem; }
+      .about { grid-template-columns: 1fr; gap: 2rem; }
+      .about-meta { flex-direction: row; align-items: center; gap: 1.5rem; }
+      .about-mark { flex-direction: row; padding-left: 0; }
+      .about-mark .rule { width: 40px; height: 1px; }
       .about-body { font-size: 1.1rem; }
-      .about-body .lead { font-size: 1.6rem; }
+      .about-body .lead { font-size: 1.7rem; }
       .newsletter { padding: 5rem 1.5rem; }
       .newsletter-form .field label { width: 3.5rem; font-size: 0.65rem; }
       .newsletter-form input[type="text"],
@@ -572,19 +698,28 @@
 
     <section id="about">
       <div class="about">
-        <div class="section-label">About</div>
+        <div class="about-meta">
+          <div class="section-label">About</div>
+          <div class="about-mark" aria-hidden="true">
+            <span class="rule"></span>
+            <span class="glyph">❦</span>
+            <span class="rule"></span>
+          </div>
+        </div>
         <div class="about-body">
           <p class="lead">I write fiction that sits between the literary and the uncanny — stories interested in grief, memory, landscape, and the thin places where ordinary life starts to shimmer.</p>
           <p>My work draws on the British folk-horror tradition — M. R. James, Shirley Jackson, Andrew Michael Hurley — while keeping a foot in contemporary literary fiction. I'm drawn to restraint over spectacle, and to endings that leave a room unsettled long after the book is closed.</p>
           <p>I live and work in the UK.</p>
+          <p class="about-signoff">— Aidan</p>
         </div>
       </div>
     </section>
 
-    <div class="ornament"><span class="ornament-mark">❦</span></div>
-
     <section id="work">
-      <div class="section-label">Work</div>
+      <header class="work-header">
+        <div class="section-label">Work</div>
+        <h2 class="work-title">The <em>Novels</em></h2>
+      </header>
       <div class="books-grid">
 
         <article class="book">
@@ -609,7 +744,7 @@
           <div>
             <div class="book-meta">Novel · In progress</div>
             <h3 class="book-title">The Static</h3>
-            <p class="book-desc">A psychological horror. A sleep-deprived new father finds himself listening, night after night, to a second-hand baby monitor that has begun to speak back. Not in his son's voice. Not in any voice he knows.</p>
+            <p class="book-desc">A psychological horror. A sleep-deprived new father finds himself listening, night after night, to a second-hand baby monitor that has begun to speak back.</p>
             <div class="book-links">
               <a href="#letters">Be notified</a>
             </div>
@@ -637,8 +772,7 @@
     <div>© <span id="year"></span> Aidan Moon</div>
     <div class="links">
       <a href="mailto:hello@aidanmoon.com">Contact</a>
-      <a href="#" rel="me">Bluesky</a>
-      <a href="#" rel="me">Instagram</a>
+      <a href="https://www.instagram.com/aidan.moon.author/" rel="me" target="_blank">Instagram</a>
     </div>
   </footer>
 
