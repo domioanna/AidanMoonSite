@@ -152,24 +152,18 @@
     }
 
     .hero h1 {
-      font-family: 'Fraunces', serif;
-      font-variation-settings: "SOFT" 40, "WONK" 1, "opsz" 144;
-      font-weight: 400;
-      font-size: clamp(4rem, 11vw, 10rem);
-      line-height: 0.92;
-      letter-spacing: -0.03em;
       margin-bottom: 3rem;
-      color: var(--ink);
+      line-height: 0;
     }
 
-    .hero h1 .word {
-      display: inline-block;
+    .hero-logo img {
+      display: block;
+      width: clamp(280px, 42vw, 620px);
+      height: auto;
       opacity: 0;
       transform: translateY(20px);
-      animation: rise 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+      animation: rise 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) 0.4s forwards;
     }
-    .hero h1 .word:nth-child(1) { animation-delay: 0.4s; }
-    .hero h1 .word:nth-child(2) { animation-delay: 0.55s; }
 
     .hero-tagline {
       font-family: 'Fraunces', serif;
@@ -295,12 +289,12 @@
       max-width: 22ch;
     }
     .about-signoff {
-      margin-top: 3rem;
-      font-family: 'Fraunces', serif;
-      font-style: italic;
-      color: var(--muted);
-      font-size: 1.05rem;
-      letter-spacing: 0.02em;
+      margin-top: 2.5rem;
+    }
+    .about-signoff img {
+      display: block;
+      width: clamp(150px, 18vw, 210px);
+      height: auto;
     }
 
     /* Work / Books */
@@ -655,7 +649,12 @@
       .hero-nav { justify-content: center; }
       .hero-nav ul { gap: 1.5rem; flex-wrap: wrap; justify-content: center; }
       .hero-content { grid-template-columns: 1fr; gap: 2rem; margin-top: 3rem; }
+      .hero-text { max-width: 100%; min-width: 0; }
+      .hero-logo img { width: clamp(240px, 70vw, 420px); }
+      .hero-tagline { max-width: 100%; font-size: clamp(1rem, 4vw, 1.4rem); }
       .hero-vertical { display: none; }
+      .book { max-width: 280px; }
+      .book-cover { align-self: center; }
       section { padding: 4rem 1.5rem; }
       section#about { padding: 5rem 1.5rem; }
       section#work { padding: 3rem 1.5rem 5rem; }
@@ -689,7 +688,7 @@
       <div class="hero-content">
         <div class="hero-text">
           <div class="hero-kicker">Folk horror &nbsp;·&nbsp; Literary fiction</div>
-          <h1><span class="word">Aidan</span> <span class="word">Moon</span></h1>
+          <h1 class="hero-logo"><img src="images/aidan-moon-logo.png" alt="Aidan Moon" /></h1>
           <p class="hero-tagline">Novels of quiet unease, half-remembered ritual, and the places where the woods meet the wallpaper.</p>
         </div>
         <div class="hero-vertical">Est. Britain</div>
@@ -710,7 +709,7 @@
           <p class="lead">I write fiction that sits between the literary and the uncanny — stories interested in grief, memory, landscape, and the thin places where ordinary life starts to shimmer.</p>
           <p>My work draws on the British folk-horror tradition — M. R. James, Shirley Jackson, Andrew Michael Hurley — while keeping a foot in contemporary literary fiction. I'm drawn to restraint over spectacle, and to endings that leave a room unsettled long after the book is closed.</p>
           <p>I live and work in the UK.</p>
-          <p class="about-signoff">— Aidan</p>
+          <p class="about-signoff"><img src="images/aidan-moon-logo.png" alt="Aidan Moon" /></p>
         </div>
       </div>
     </section>
