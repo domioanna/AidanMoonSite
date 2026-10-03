@@ -266,9 +266,13 @@
     .story-cover {
       position: relative;
       max-width: 380px;
+    }
+    .story-cover img {
+      display: block;
+      width: 100%;
+      height: auto;
       box-shadow: 0 30px 60px -20px rgba(12, 26, 25, 0.55);
     }
-    .story-cover img { display: block; width: 100%; height: auto; }
     .story-cover figcaption {
       margin-top: 1rem;
       font-size: 0.74rem;
@@ -702,7 +706,7 @@
       <div class="wrap story-grid">
         <figure class="story-cover">
           <img src="images/cover.jpg" alt="What The Tide Brings In by Aidan Moon — cover showing a grey island town above the waterline and divers, ropes and nets hanging in the dark green sea below" onerror="this.parentElement.hidden = true; this.closest('.story-grid').classList.add('no-cover')" />
-          <figcaption>Cover · work in progress</figcaption>
+          <figcaption>Cover · early design</figcaption>
         </figure>
         <div class="story-body">
           <p class="section-label">The Story</p>
